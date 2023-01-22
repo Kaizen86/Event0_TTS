@@ -1,0 +1,77 @@
+.
+├── alisa
+│   ├── anger1
+│   │   ├── cons
+│   │   │   └── [8]
+│   │   └── vow
+│   │       └── [34]
+│   ├── AT
+│   │   └── cons
+│   │       └── ZH
+│   ├── cons
+│   │   ├── V
+│   │   │   └── oF
+│   │   └── [14]
+│   ├── stress1
+│   │   ├── cons
+│   │   │   └── [7]
+│   │   └── vow
+│   │       └── [33]
+│   ├── trust1
+│   │   ├── cons
+│   │   │   └── [8]
+│   │   └── vow
+│   │       └── [35]
+│   └── trust2
+│       ├── cons
+│       │   └── [8]
+│       └── vow
+│           └── [35]
+├── dtmf
+│   └── phonemes
+├── fluty
+│   ├── low
+│   │   └── cons
+│   │       └── ZH
+│   ├── low2
+│   │   └── cons
+│   │       └── ZH
+│   └── low3
+│       └── cons
+│           └── ZH
+├── fr
+│   ├── anger
+│   │   └── [16]
+│   ├── stress
+│   │   └── [17]
+│   ├── trust
+│   │   └── [22]
+│   └── unprocessed
+│       └── [14]
+├── lauren
+│   └── phonemes
+└── mark
+    ├── anger1
+    │   └── [48]
+    ├── none
+    │   └── [16]
+    ├── stress1
+    │   └── [45]
+    ├── trust1
+    │   └── [48]
+    └── trust2
+        └── [48]
+
+They clearly put a lot of effort into this, but I suspect fluty and lauren are unused. Actually, is there even a French version of the game? There's an entire translation file but I've never seen an option for language.
+Anyway, I've roughly organised the folders into this structure: %speaker/%tone/%phoneme/*.ogg
+There's a file somewhere that maps dictionary words into sets of phonemes to be played, and there are multiple sets of phonemes for each speaker and their tone of voice.
+The individual filenames are rather inconsistent, so I went and wrote sort.py to organise all the sounds into  folders to be more manageable. Unfortunately though, it seems the devs tripped over their naming scheme and some parts are a bit weird.
+
+So, how does their system work? It looks like they had him read a dictionary and then manually extracted the phonemes. That's a fairly good approach, but the names of the files were seemingly chosen at the roll of a dice! Sometimes it's a letter or two, but usually it's a word, and even then it sometimes seems completely unrelated.
+
+Therefore I suggest to Future Dan that his code follow this functional principle:
+    * Use mark/trust1 as the default voice
+    * For each word, look up it's phoneme list from the aforementioned file
+    * For each phoneme, select either the file labelled with the word, or otherwise a random one in the folder.
+        (ex cannot->mark/%tone/AA0/cannot.ogg)
+    * If all else fails, grab something suitable from mark/none
