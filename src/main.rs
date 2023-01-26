@@ -1,12 +1,12 @@
+use rodio::{Decoder, OutputStream, Sink, Source};
 use rust_embed::RustEmbed;
 use std::io::Cursor;
-use rodio::{Decoder, OutputStream, Sink};
+use std::time::Duration;
 
 // Include the Mark voice into the executable
 #[derive(RustEmbed)]
 #[folder = "ITS_TTS/mark/"]
 struct Voice;
-
 
 fn main() {
     // Get a output stream handle to the default physical sound device
@@ -15,16 +15,21 @@ fn main() {
     let sink = Sink::try_new(&stream_handle).unwrap();
 
     // Test: Iterate over the entire phoneme set
-    for phoneme in Voice::iter() {
-        println!("{}",phoneme);
-    
+    // This loop will eventually process each phoneme per word
+    for (i,phoneme) in Voice::iter().enumerate() {
+        println!("{}", phoneme);
+
         // Get a file-like Cursor to the audio data from the phoneme's path.
-        let file = Cursor::new(Voice::get(&phoneme).unwrap().data);// phoneme.as_bytes());
+        let file = Cursor::new(Voice::get(&phoneme).unwrap().data);
         // Decode that sound file into a source
         let source = Decoder::new_vorbis(file).unwrap();
-        
+
         // Add the source to the sink queue. This starts playback asyncronously.
-        sink.append(source);
+        match i {
+            // Add a pause to the start of each word
+            0=>sink.append(source.delay(Duration::from_millis(30))),
+            _=>sink.append(source)
+        };
     }
 
     // Await completion of playback
