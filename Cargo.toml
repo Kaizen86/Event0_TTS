@@ -1,5 +1,5 @@
 [package]
-name = "KaizenTTS"
+name = "kaizen_tts"
 version = "0.1.0"
 edition = "2021"
 
