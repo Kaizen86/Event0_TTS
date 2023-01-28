@@ -27,7 +27,7 @@ fn main() {
         // Add the source to the sink queue. This starts playback asyncronously.
         match i {
             // Add a pause to the start of each word
-            0=>sink.append(source.delay(Duration::from_millis(30))),
+            0=>sink.append(source.delay(Duration::from_millis(65))),
             _=>sink.append(source)
         };
     }
