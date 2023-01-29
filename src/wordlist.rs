@@ -25,10 +25,10 @@ enum Phonemes {
 use Phonemes::*;
 
 // Given a word, return a vector with a list of phoneme tokens
-fn get_phonemes(word:&str) -> Result<Vec<Phonemes>, Vec<Phonemes>> {
+fn get_phonemes(word:&str) -> Vec<Phonemes> {
   // This might be a slightly stupid approach, but my attempts at enums, maps, and hashmaps have proven to either be unworkable or require sentinel values.
   match word {
-    "hello" => Ok(vec![UH1,M]), // wait a second where are the "H" tokens??
-    _ => Err(vec![EH0,R,AW2]) // Any unrecognised words should say "error".
+    "hello" => vec![UH1,M], // wait a second where are the "H" tokens??
+    _ => vec![EH0,R,AW2] // Any unrecognised words should say "error".
   }
 }
