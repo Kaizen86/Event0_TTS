@@ -1,6 +1,7 @@
 // Enum of all possible phoneme tokens
 #[allow(dead_code)] // Suppress unused warning due to the upcoming use statement
-enum Phonemes {
+#[derive(Debug)] // Allow debug prints
+pub enum Phonemes {
   AA0,AA1,AA2,
   AE0,AE1,AE2,
   AH0,AH1,AH2,
