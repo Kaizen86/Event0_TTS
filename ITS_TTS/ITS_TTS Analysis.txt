@@ -75,3 +75,5 @@ Therefore I suggest to Future Dan that his code follow this functional principle
     * For each phoneme, select either the file labelled with the word, or otherwise a random one in the folder.
         (ex cannot->mark/%tone/AA0/cannot.ogg)
     * If all else fails, grab something suitable from mark/none
+
+Update: I think it would be best to stick exclusively to Mark and his anger1, trust1, and trust2 tones. Trying to do anything more than that would likely be a rather significant headache due to the inconsistencies, so I'll leave everything else alone.
