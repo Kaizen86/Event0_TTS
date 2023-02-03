@@ -33,3 +33,59 @@ pub fn get_phonemes(word:&str) -> Vec<Phonemes> {
     _ => vec![EH0,R,AW2] // Any unrecognised words should say "error".
   }
 }
+
+// Given a phoneme token, return a random filename
+pub fn get_filenames(phoneme:&Phonemes) -> Vec<&str> { // -> Option<&&str> {
+  let names = match phoneme {
+    AA0 => vec!["cannot", "cannot2"],
+    AA1 => vec!["LibriVox", "are", "dot"],
+    AA2 => vec!["argumentative", "paradox", "particularly", "volunteer"],
+    AE0 => vec!["abstractions", "accept", "accepted", "spasmodic"],
+    AE1 => vec!["Chapter", "Chapter2", "Traveller", "matter"],
+    AE2 => vec!["Mathematical3", "mathematical", "mathematical2", "mathematicians"],
+    AH0 => vec!["Machine", "The", "a", "recording"],
+    AH1 => vec!["f", "f2", "public"],
+    AH2 => vec!["Everyone", "humbu", "unaccountable", "understand"],
+    AO1 => vec!["All", "For", "recordin", "recordings"],
+    AO2 => vec!["laboratory", "therefore", "transitory", "uniform"],
+    AW1 => vec!["Our2", "expounding", "founded", "our"],
+    AW2 => vec!["anyhow", "however", "however2"],
+    AY0 => vec!["Psychologist", "Psychologist2", "idea", "ideas"],
+    AY1 => vec!["Time", "Time2", "by", "by2"],
+    AY2 => vec!["Scientific", "recognized", "recondite", "scientific2"],
+    EH0 => vec!["embraced", "existence", "existence2", "object"],
+    EH1 => vec!["chairs", "incandescent", "recondite"],
+    EH2 => vec!["investigations", "represent", "represent2", "representations"],
+    ER0 => vec!["Chapter", "Traveller"],
+    ER1 => vec!["burned", "earnestness", "luxurious", "universally"],
+    ER2 => vec!["controvert", "framework"],
+    EY1 => vec!["H", "domain", "rey", "information"],
+    EY2 => vec!["Yesterday", "animated", "yesterday2"],
+    IH0 => vec!["LibriVox", "LibriVox2", "recording"],
+    IH1 => vec!["This", "is", "visit", "volunteer"],
+    IH2 => vec!["atmosphere", "forefinger", "incandescent"],
+    IY0 => vec!["brightly", "lilies", "radiance", "usually"],
+    IY1 => vec!["G", "Machine", "Machine2", "please"],
+    IY2 => vec!["reassured"],
+    L   => vec!["LibriVox", "LibriVox2"],
+    M   => vec!["Machine", "Time", "domain", "more"],
+    N   => vec!["1", "Machine", "in"],
+    NG  => vec!["expoundin", "recordin", "recording2", "recordings"],
+    OW0 => vec!["Plat", "follow", "follow2"],
+    OW1 => vec!["ver", "roams", "s"],
+    OW2 => vec!["almost", "almost2", "anecdote", "elbows"],
+    OY1 => vec!["adroitly", "pointed", "points", "voyage"],
+    R   => vec!["LibriVox", "LibriVox2", "recording"],
+    UH1 => vec!["Duration", "could", "looking", "put"],
+    UH2 => vec!["verlook", "verlooked"],
+    UW0 => vec!["continued"],
+    UW1 => vec!["t", "to2", "usually"],
+    UW2 => vec!["universally"],
+    V   => vec!["LibriVox"],
+    W   => vec!["1", "Wells", "was", "will"],
+    Y   => vec!["You", "convenient", "universally", "usually"],
+    Z   => vec!["is"]
+  };
+  names
+  //names.choose(&mut rand::thread_rng())
+}
