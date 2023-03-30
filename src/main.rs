@@ -1,9 +1,8 @@
 mod wordlist; // Contains list of English words and their phoneme tokens
 
 use rust_embed::RustEmbed;
-use std::io::Cursor;
+use std::io;
 use std::time::Duration;
-use text_io::read;
 use rodio::{Decoder, OutputStream, Sink, Source};
 use rand::seq::SliceRandom;
 
@@ -18,19 +17,16 @@ fn main() {
     // Define an audio sink which uses the stream handle
     let sink = Sink::try_new(&stream_handle).unwrap();
 
-    println!("Enter sentence to speak:");
-    loop {
-        print!(">");
-        let input: String = read!();
-        let input_upper = input.to_uppercase();
+    for line in io::stdin().lines() {
+        let line_text = line.unwrap();
+        println!("\r{}", &line_text);
+        let input_upper = line_text.to_uppercase();
         let sentence = input_upper.split_whitespace();
 
-        //let sentence = vec!["HELLO", "WILLIAM", "IT", "TOOK", "ALL", "NIGHT", "BUT", "I", "MANAGED", "TO", "GET", "THE", "TEXT", "TO", "SPEECH", "ENGINE", "WORKING"];
-//
         // Iterate over each word, get its phonemes, and run the loop on those phonemes
         for word in sentence {
             let tokens = wordlist::get_phonemes(word);
-            println!("{}: {:?}", word, tokens);
+            //println!("{}: {:?}", word, tokens);
 
             // This loop processes each phoneme per word
             for (i, phoneme) in tokens.iter().enumerate() {
@@ -51,9 +47,9 @@ fn main() {
                 //println!("{}",path);
             
                 // Get a file-like Cursor to the audio data from the phoneme's path.
-                let file = Cursor::new(MarkVoice::get(&path).unwrap().data);
+                let file = io::Cursor::new(MarkVoice::get(&path).unwrap().data);
                 // Decode that sound file into a source
-                let source = Decoder::new_vorbis(file).unwrap();
+                let source = Decoder::new_vorbis(file).unwrap().speed(1.1);
 
                 // Add the source to the sink queue. This starts playback asyncronously.
                 match i {
