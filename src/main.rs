@@ -25,7 +25,7 @@ fn main() {
 
         // Iterate over each word, get its phonemes, and run the loop on those phonemes
         for word in sentence {
-            let tokens = wordlist::get_phonemes(word);
+            let tokens = wordlist::get_phonemes(word).unwrap();
             //println!("{}: {:?}", word, tokens);
 
             // This loop processes each phoneme per word
