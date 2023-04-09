@@ -25,7 +25,7 @@ fn main() {
 
         // Iterate over each word, get its phonemes, and run the loop on those phonemes
         for word in sentence {
-            let tokens = wordlist::get_phonemes(word).unwrap();
+            let tokens = wordlist::get_phonemes(word);
             //println!("{}: {:?}", word, tokens);
 
             // This loop processes each phoneme per word
@@ -34,7 +34,7 @@ fn main() {
 
                 // Construct the path to the audio data
                 let mut path: String = "trust1/".to_owned();
-                path.push_str(format!("{:?}",phoneme).as_str());
+                path.push_str(phoneme);
                 path.push_str("/");
                 //path.push_str(wordlist::get_filename(&phoneme).unwrap());
                 // Pick a file at random
