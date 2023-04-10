@@ -1,4 +1,4 @@
-use wordmap_english;
+mod wordmap_english;
 
 // Given a phoneme token, return a random filename
 pub fn get_filenames(phoneme:&str) -> Vec<&str> { // -> Option<&&str> {
@@ -72,18 +72,8 @@ pub fn get_filenames(phoneme:&str) -> Vec<&str> { // -> Option<&&str> {
   //names.choose(&mut rand::thread_rng())
 }
 
-//  error[E0425]: cannot find value `AO0` in this scope
-//  error[E0425]: cannot find value `AW0` in this scope
-//  error[E0425]: cannot find value `EY0` in this scope
-//  error[E0425]: cannot find value `OY0` in this scope
-//  error[E0425]: cannot find value `OY2` in this scope
-//  error[E0425]: cannot find value `UH0` in this scope
-//  error[E0425]: cannot find value `ZH` in this scope
-
-// max length is 28 phonemes
-
 pub fn get_phonemes(word: &str) -> Vec<&str> {
-  match WORDMAP_ENGLISH.get(word).cloned() {
+  match wordmap_english::WORDMAP_ENGLISH.get(word).cloned() {
     Some(result) => result.split(";").collect::<Vec<&str>>(),
     None => vec![]
   }

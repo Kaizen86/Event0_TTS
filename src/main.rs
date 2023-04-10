@@ -1,4 +1,4 @@
-mod wordlist; // Contains list of English words and their phoneme tokens
+mod parser; // Converts words into lists of audio files to play
 
 use rust_embed::RustEmbed;
 use std::io;
@@ -25,7 +25,7 @@ fn main() {
 
         // Iterate over each word, get its phonemes, and run the loop on those phonemes
         for word in sentence {
-            let tokens = wordlist::get_phonemes(word);
+            let tokens = parser::get_phonemes(word);
             //println!("{}: {:?}", word, tokens);
 
             // This loop processes each phoneme per word
@@ -36,9 +36,9 @@ fn main() {
                 let mut path: String = "trust1/".to_owned();
                 path.push_str(phoneme);
                 path.push_str("/");
-                //path.push_str(wordlist::get_filename(&phoneme).unwrap());
                 // Pick a file at random
-                let names = wordlist::get_filenames(&phoneme);
+                //path.push_str(parser::get_filename(&phoneme).unwrap());
+                let names = parser::get_filenames(&phoneme);
                 let name = names.choose(&mut rand::thread_rng());
                 assert!(name!=None);
                 path.push_str(name.unwrap());
