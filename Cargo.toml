@@ -11,3 +11,15 @@ rand = "0.8.5"
 rodio = "0.16.0"
 rust-embed = "6.4.2"
 text_io = "0.1.12"
+
+[profile.release]
+# Remove symbols from the binary
+strip = true
+# Instruct to optimise for size rather than speed
+#opt-level = "z"
+# Enable Link Time Optimisation
+lto = true
+# Disable parallel code generation to allow for optimisations
+codegen-units = 1
+# Disable traceback unwinding
+panic = "abort"
