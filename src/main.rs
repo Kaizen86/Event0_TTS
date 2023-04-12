@@ -49,7 +49,9 @@ fn main() {
                 // Get a file-like Cursor to the audio data from the phoneme's path.
                 let file = io::Cursor::new(MarkVoice::get(&path).unwrap().data);
                 // Decode that sound file into a source
-                let source = Decoder::new_vorbis(file).unwrap().speed(1.1);
+                let source = Decoder::new_vorbis(file)
+                  .unwrap()
+                  .speed(1.1); // 48khz is slightly too slow - this bumps it to 50khz.
 
                 // Add the source to the sink queue. This starts playback asyncronously.
                 match i {
@@ -57,6 +59,7 @@ fn main() {
                     0 => sink.append(source.delay(Duration::from_millis(35))),
                     _ => sink.append(source), // Any other phoneme should not have a delay
                 };
+                
             }
 
             // Await completion of word playback
