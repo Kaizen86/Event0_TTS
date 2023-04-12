@@ -1,6 +1,35 @@
 mod wordmap_english;
+// mod wordmap_numbers;
+mod wordmap_punctuation;
+mod wordmap_linux;
 
-// Given a phoneme token, return a random filename
+// Given a word, return the list of phoneme tokens to speak
+pub fn get_phonemes(word: &str) -> Vec<&str> {
+  // Remove some punctuation and brackets
+  let word_stripped = word.replace(&['.', ',', ':', ';', '/', '"', '(', ')', '~'], "");
+  // Check if that word was just those punctation characters
+  if word_stripped.len() == 0 {
+    // Try to pronounce the punctuation if it's sensible
+    match wordmap_punctuation::PUNCTUATION.get(&word).cloned() {
+      Some(result) => result.split(";").collect::<Vec<&str>>(),
+      None => vec![] // No match - say nothing
+    }
+  }
+  // Otherwise there will be a copy of the word with less punctuation
+  else {
+    // Try the English wordmap first
+    match wordmap_english::ENGLISH.get(&word_stripped).cloned() {
+      Some(result) => result.split(";").collect::<Vec<&str>>(),
+      None => // No match - Is this a technical term?
+        match wordmap_linux::TECHNOBABBLE.get(&word_stripped).cloned() {
+          Some(result) => result.split(";").collect::<Vec<&str>>(),
+          None => vec![] // No match - say nothing
+        }
+    }
+  }
+}
+
+// Given a phoneme token, return a random filename from our collection
 pub fn get_filenames(phoneme:&str) -> Vec<&str> { // -> Option<&&str> {
   let names = match phoneme {
     "AA0" => vec!["cannot", "cannot2"],
@@ -70,11 +99,4 @@ pub fn get_filenames(phoneme:&str) -> Vec<&str> { // -> Option<&&str> {
   };
   names
   //names.choose(&mut rand::thread_rng())
-}
-
-pub fn get_phonemes(word: &str) -> Vec<&str> {
-  match wordmap_english::WORDMAP_ENGLISH.get(word).cloned() {
-    Some(result) => result.split(";").collect::<Vec<&str>>(),
-    None => vec![]
-  }
 }
