@@ -6,7 +6,7 @@ mod wordmap_linux;
 // Given a word, return the list of phoneme tokens to speak
 pub fn get_phonemes(word: &str) -> Vec<&str> {
   // Remove some punctuation and brackets
-  let word_stripped = word.replace(&['.', ',', ':', ';', '/', '"', '(', ')', '~'], "");
+  let word_stripped = word.replace(&['.', ',', ':', ';', '/', '"', '(', ')', '~', '`'], "");
   // Check if that word was just those punctation characters
   if word_stripped.len() == 0 {
     // Try to pronounce the punctuation if it's sensible
