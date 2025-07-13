@@ -31,7 +31,7 @@ pub fn get_phonemes(word: &str) -> Vec<&str> {
 
 // Given a phoneme token, return a random filename from our collection
 pub fn get_filenames(phoneme:&str) -> Vec<&str> { // -> Option<&&str> {
-  let names = match phoneme {
+  match phoneme {
     "AA0" => vec!["cannot", "cannot2"],
     "AA1" => vec!["LibriVox", "are", "dot"],
     "AA2" => vec!["argumentative", "paradox", "particularly", "volunteer"],
@@ -96,7 +96,6 @@ pub fn get_filenames(phoneme:&str) -> Vec<&str> { // -> Option<&&str> {
     "Z"   => vec!["is", "please", "recordings"],
     "ZH"  => vec!["luxurious", "precision", "usually"],
     &_  => panic!("Wordlist contains unknown phoneme token {:?}", phoneme)
-  };
-  names
+  }
   //names.choose(&mut rand::thread_rng())
 }
